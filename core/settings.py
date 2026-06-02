@@ -199,6 +199,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# File upload limits (to prevent worker timeouts on Railway)
+# 5 MB per file, 20 MB per whole request
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024   # 5 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 MB
+
+
 # Простой режим хранения пользовательских файлов в S3-совместимом бакете (Railway Buckets или AWS S3).
 # Включается установкой переменной окружения `USE_S3=true`.
 USE_S3 = os.environ.get('USE_S3', 'False').lower() == 'true'
