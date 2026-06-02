@@ -35,7 +35,7 @@
               {% icon 'chevron-down' 'w-4 h-4 text-steel-400 transition-transform duration-300' 'profile-dropdown-icon' %}
             </button>
             
-            <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-56 rounded-3xl glass-panel opacity-0 invisible translate-y-4 transition-all duration-300 z-50">
+            <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-56 rounded-3xl bg-white border border-steel-100 shadow-2xl opacity-0 invisible translate-y-4 transition-all duration-300 z-50">
               <div class="p-3 flex flex-col gap-1">
                 <a href="{% url 'shop:product_create' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ember-600 rounded-2xl hover:bg-ember-50 transition-all">
                   {% icon 'plus-circle' 'w-4 h-4' %} Создать объявление

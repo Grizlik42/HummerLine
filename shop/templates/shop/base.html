@@ -4,25 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}HummerLine - Профессиональное оборудование{% endblock %}</title>
+    <title>{% block title %}HummerLine - Маркетплейс для каждого{% endblock %}</title>
     
     <!-- SEO & Meta -->
-    <meta name="description" content="HummerLine Hardware — премиальное оборудование и инструменты для профессионалов. Строительство, ремонт, мебель и электроника.">
-    <meta name="keywords" content="инструменты, строительство, ремонт, оборудование, электроника, мебель, Казахстан">
+    <meta name="description" content="HummerLine — универсальный маркетплейс полезных товаров для дома, работы, хобби и повседневной жизни каждого человека.">
+    <meta name="keywords" content="маркетплейс, интернет-магазин, товары для всех, мебель, электроника, строительство, Казахстан">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="{% block og_title %}HummerLine - Профессиональные решения{% endblock %}">
-    <meta property="og:description" content="Премиальное оборудование для тех, кто ценит качество и надежность.">
+    <meta property="og:title" content="{% block og_title %}HummerLine - Товары для каждого{% endblock %}">
+    <meta property="og:description" content="Универсальный маркетплейс полезных товаров для дома, работы, хобби и повседневной жизни.">
     <meta property="og:image" content="{% static 'images/og-image.jpg' %}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
-    <meta property="twitter:title" content="HummerLine - Профессиональные решения">
-    <meta property="twitter:description" content="Премиальное оборудование для тех, кто ценит качество и надежность.">
+    <meta property="twitter:title" content="HummerLine - Товары для каждого">
+    <meta property="twitter:description" content="Универсальный маркетплейс полезных товаров для дома, работы, хобби и повседневной жизни.">
 
     {% if not SIMPLE_DESIGN %}
     <!-- Шрифты и оптимизация -->

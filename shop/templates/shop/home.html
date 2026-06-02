@@ -1,7 +1,7 @@
 {% extends "shop/base.html" %}
 {% load static svg_icons %}
 
-{% block title %}HummerLine - Профессиональные решения{% endblock %}
+{% block title %}HummerLine - Все вещи для каждого{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -20,25 +20,25 @@
         <div class="hero-reveal-wrap mb-8">
           <div class="hero-reveal-inner badge-hero">
             {% icon 'sparkles' 'w-4 h-4 text-ember-600' %}
-            <span>Премиальное оборудование для профи</span>
+            <span>Всё необходимое в одном месте</span>
           </div>
         </div>
         
         <h1 class="text-display-hero hero-title-main">
           <div class="hero-reveal-wrap overflow-hidden pb-1">
-            <div class="hero-reveal-inner">Инструменты</div>
+            <div class="hero-reveal-inner">Все вещи</div>
           </div>
           <div class="hero-reveal-wrap overflow-hidden pb-1">
-            <div class="hero-reveal-inner text-transparent bg-clip-text bg-gradient-to-r from-ember-600 via-orange-500 to-amber-500">будущего</div>
+            <div class="hero-reveal-inner text-transparent bg-clip-text bg-gradient-to-r from-ember-600 via-orange-500 to-amber-500">для каждого</div>
           </div>
           <div class="hero-reveal-wrap overflow-hidden pb-1">
-            <div class="hero-reveal-inner text-steel-950">уже здесь.</div>
+            <div class="hero-reveal-inner text-steel-950">в одном месте.</div>
           </div>
         </h1>
         
         <div class="hero-reveal-wrap overflow-hidden mt-10">
           <p class="hero-reveal-inner max-w-xl text-xl leading-relaxed text-steel-600 font-medium">
-            HummerLine Hardware — это синергия надежности и инноваций. Мы создаем экосистему для тех, кто ценит качество, скорость и профессиональный подход.
+            HummerLine — это универсальный маркетплейс полезных товаров. Огромный выбор товаров для дома, работы, хобби и повседневной жизни каждого человека.
           </p>
         </div>
         
@@ -115,7 +115,7 @@
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
       <div class="max-w-2xl">
         <h2 class="section-reveal section-heading">Наши направления</h2>
-        <p class="section-reveal mt-6 text-xl text-steel-500 leading-relaxed">Исследуйте тщательно отобранные категории товаров для любых профессиональных задач.</p>
+        <p class="section-reveal mt-6 text-xl text-steel-500 leading-relaxed">Исследуйте тщательно отобранные категории товаров для любых задач и интересов.</p>
       </div>
       <a href="{% url 'shop:product_list' %}" class="section-reveal group flex items-center gap-3 text-ember-600 font-extrabold text-lg transition-all">
         <span class="border-b-2 border-ember-200 group-hover:border-ember-500 transition-colors pb-1">Смотреть все категории</span>
