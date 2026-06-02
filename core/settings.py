@@ -234,6 +234,9 @@ if USE_S3:
     AWS_DEFAULT_ACL = None          # Railway Object Storage doesn't support ACLs
     AWS_S3_FILE_OVERWRITE = False
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # Tigris (t3.storageapi.dev) requires path-style URLs and SigV4
+    AWS_S3_ADDRESSING_STYLE = 'path'
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
 
     # Override only the 'default' backend; keep staticfiles (WhiteNoise) unchanged
     STORAGES['default'] = {
