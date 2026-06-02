@@ -184,3 +184,28 @@ body {
   }
 }
 
+/* --- List View for Catalog Layout --- */
+#products-container.list-view {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  gap: 1.5rem !important;
+}
+
+@media (min-width: 640px) {
+  #products-container.list-view .card-premium {
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 1.5rem !important;
+  }
+  
+  #products-container.list-view .card-premium > .relative {
+    width: 12rem !important;
+    height: 12rem !important;
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  #products-container.list-view .card-premium h3 {
+    min-height: auto !important;
+  }
+}
+
