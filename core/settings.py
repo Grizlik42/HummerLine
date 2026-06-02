@@ -197,7 +197,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# If MEDIA_ROOT env var is set (e.g. Railway Volume mount path like /data/media),
+# use it; otherwise fall back to local ./media directory.
+MEDIA_ROOT = Path(os.environ.get('MEDIA_ROOT', BASE_DIR / 'media'))
 
 # File upload limits (to prevent worker timeouts on Railway)
 # 5 MB per file, 20 MB per whole request
