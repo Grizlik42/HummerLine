@@ -15,12 +15,13 @@ urlpatterns = [
     path('', include('shop.urls', namespace='shop')),
 ]
 
-# Serve media files directly using Django's serve view (works in production on Railway)
-urlpatterns += [
-    re_path(r'^media/(?P<path>.*)$', serve, {
-        'document_root': settings.MEDIA_ROOT,
-    }),
-]
+# Serve media files from local disk only when NOT using S3 storage
+if not settings.USE_S3:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]
 
 # Static files are served by WhiteNoise in production; during development add static patterns
 if settings.DEBUG:

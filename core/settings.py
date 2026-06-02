@@ -207,25 +207,38 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024   # 5 MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 MB
 
 
-# Простой режим хранения пользовательских файлов в S3-совместимом бакете (Railway Buckets или AWS S3).
-# Включается установкой переменной окружения `USE_S3=true`.
+# Railway Object Storage / AWS S3 media file storage.
+# Enable by setting USE_S3=true in Railway environment variables.
 USE_S3 = os.environ.get('USE_S3', 'False').lower() == 'true'
 if USE_S3:
-    INSTALLED_APPS.append('storages')
+    if 'storages' not in INSTALLED_APPS:
+        INSTALLED_APPS.append('storages')
 
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', None)
-    AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')  # optional for S3-compatible providers
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-west-1')
+    AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')  # e.g. https://bucket.railway.app
 
-    # Используем стандартный бекенд django-storages (минимальная настройка)
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    AWS_DEFAULT_ACL = None
+    # Make uploaded files publicly readable (no signed URLs)
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_FILE_OVERWRITE = False
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
-    # Простая логика MEDIA_URL: если задан endpoint, используем path-style URL, иначе стандартный S3 host
+    # Django 5.x STORAGES dict (replaces deprecated DEFAULT_FILE_STORAGE)
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+        },
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
+
+    # Build public MEDIA_URL for Railway Object Storage endpoint
     if AWS_S3_ENDPOINT_URL:
+        # Railway format: https://<endpoint>/<bucket>/
         MEDIA_URL = f"{AWS_S3_ENDPOINT_URL.rstrip('/')}/{AWS_STORAGE_BUCKET_NAME}/"
     else:
         MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
