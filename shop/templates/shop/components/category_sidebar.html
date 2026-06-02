@@ -1,0 +1,67 @@
+{% load static svg_icons %}
+<!-- Category Sidebar Component -->
+<aside aria-labelledby="categories-heading" class="lg:block hidden">
+  <div class="sticky top-28 space-y-8">
+    <!-- Categories -->
+    <div class="card-premium !p-6">
+      <h3 class="font-display text-lg font-bold text-steel-950 mb-6 flex items-center gap-2" id="categories-heading">
+        {% icon 'layers' 'w-5 h-5 text-ember-500' %}
+        Категории
+      </h3>
+      <ul class="space-y-1">
+        <li>
+          <a href="{% url 'shop:product_list' %}{% if search_query %}?q={{ search_query }}{% endif %}" 
+             class="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold transition-all {% if not category %}bg-ember-50 text-ember-600{% else %}text-steel-600 hover:bg-steel-50 hover:text-steel-950{% endif %}">
+            <span>Все товары</span>
+            {% if not category %}{% icon 'check' 'w-4 h-4' %}{% endif %}
+          </a>
+        </li>
+        {% for c in categories %}
+        <li>
+          <a href="{{ c.get_absolute_url }}{% if search_query %}?q={{ search_query }}{% endif %}" 
+             class="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold transition-all {% if category.slug == c.slug %}bg-ember-50 text-ember-600{% else %}text-steel-600 hover:bg-steel-50 hover:text-steel-950{% endif %}">
+            <span>{{ c.name }}</span>
+            {% if category.slug == c.slug %}{% icon 'check' 'w-4 h-4' %}{% endif %}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Filter by Price -->
+    <div class="card-premium !p-6">
+      <h3 class="font-display text-lg font-bold text-steel-950 mb-6 flex items-center gap-2">
+        {% icon 'filter' 'w-5 h-5 text-ember-500' %}
+        Фильтры
+      </h3>
+      <form action="{{ request.path }}" method="get" class="space-y-6">
+        {% if search_query %}
+          <input type="hidden" name="q" value="{{ search_query }}">
+        {% endif %}
+        {% if current_sort %}
+          <input type="hidden" name="sort" value="{{ current_sort }}">
+        {% endif %}
+        
+        <div class="space-y-3">
+          <label class="text-[10px] font-bold text-steel-400 uppercase tracking-widest">Ценовой диапазон</label>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-steel-400">ОТ</span>
+              <input type="number" name="min_price" value="{{ request.GET.min_price|default:'' }}" 
+                     class="w-full rounded-xl border border-steel-100 bg-steel-50 pl-8 pr-3 py-2.5 text-xs font-bold focus:ring-2 focus:ring-ember-500/20 focus:border-ember-500 outline-none transition-all">
+            </div>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-steel-400">ДО</span>
+              <input type="number" name="max_price" value="{{ request.GET.max_price|default:'' }}" 
+                     class="w-full rounded-xl border border-steel-100 bg-steel-50 pl-8 pr-3 py-2.5 text-xs font-bold focus:ring-2 focus:ring-ember-500/20 focus:border-ember-500 outline-none transition-all">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full btn-primary !py-3 !text-sm">
+          Применить
+        </button>
+      </form>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,300 @@
+{% extends "shop/base.html" %}
+{% load static svg_icons %}
+
+{% block title %}HummerLine - Профессиональные решения{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden min-h-[90vh] flex flex-col justify-center py-20 bg-background">
+  {% if not SIMPLE_DESIGN %}
+  <!-- Dynamic Background -->
+  <div class="absolute inset-0 bg-mesh-warm opacity-100 transition-opacity duration-1000" id="hero-mesh"></div>
+  <div class="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-white to-transparent opacity-80"></div>
+  <div class="absolute -top-24 -right-24 w-[500px] h-[500px] bg-ember-500/10 rounded-full blur-[120px] animate-pulse"></div>
+  <div class="absolute top-1/2 -left-24 w-96 h-96 bg-pine-500/10 rounded-full blur-[100px]"></div>
+  {% endif %}
+
+  <div class="container relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-16 lg:gap-24">
+      <div class="text-center lg:text-left">
+        <div class="hero-reveal-wrap mb-8">
+          <div class="hero-reveal-inner badge-hero">
+            {% icon 'sparkles' 'w-4 h-4 text-ember-600' %}
+            <span>Премиальное оборудование для профи</span>
+          </div>
+        </div>
+        
+        <h1 class="text-display-hero hero-title-main">
+          <div class="hero-reveal-wrap overflow-hidden pb-1">
+            <div class="hero-reveal-inner">Инструменты</div>
+          </div>
+          <div class="hero-reveal-wrap overflow-hidden pb-1">
+            <div class="hero-reveal-inner text-transparent bg-clip-text bg-gradient-to-r from-ember-600 via-orange-500 to-amber-500">будущего</div>
+          </div>
+          <div class="hero-reveal-wrap overflow-hidden pb-1">
+            <div class="hero-reveal-inner text-steel-950">уже здесь.</div>
+          </div>
+        </h1>
+        
+        <div class="hero-reveal-wrap overflow-hidden mt-10">
+          <p class="hero-reveal-inner max-w-xl text-xl leading-relaxed text-steel-600 font-medium">
+            HummerLine Hardware — это синергия надежности и инноваций. Мы создаем экосистему для тех, кто ценит качество, скорость и профессиональный подход.
+          </p>
+        </div>
+        
+        <div class="hero-reveal-wrap mt-14">
+
+          <div class="hero-reveal-inner flex flex-wrap gap-6 justify-center lg:justify-start">
+            <a href="{% url 'shop:product_list' %}" class="btn-primary-ember group">
+              <span class="relative z-10 flex items-center gap-3">
+                Каталог товаров {% icon 'arrow-right' 'w-5 h-5 group-hover:translate-x-1 transition-transform' %}
+              </span>
+            </a>
+            <a href="{% url 'shop:product_create' %}" class="btn-secondary-outline">
+              Разместить объявление
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% if not SIMPLE_DESIGN %}
+      <!-- Interactive GSAP Animation -->
+      <div class="hidden lg:flex justify-center items-center relative py-12" id="hero-interactive">
+        <div class="relative w-full max-w-md aspect-[4/5]">
+          <!-- Main Floating Card -->
+          <div id="float-card" class="absolute inset-0 bg-white/60 backdrop-blur-3xl rounded-5xl border border-white/80 shadow-display overflow-hidden p-6 flex flex-col z-10">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-14 h-14 rounded-2xl bg-ember-500/10 flex items-center justify-center border border-ember-500/20 shadow-inner">
+                {% icon 'star' 'w-7 h-7 text-ember-600 fill-ember-600/20' %}
+              </div>
+              <div>
+                <h3 class="font-bold text-steel-950 text-lg leading-tight">Рекомендуем</h3>
+                <p class="text-xs text-steel-500">Специально для вас</p>
+              </div>
+            </div>
+            
+            <div class="flex-1 overflow-hidden flex flex-col gap-3">
+              {% for product in recommended_products %}
+              <a href="{{ product.get_absolute_url }}" class="flex items-center gap-3 p-3 rounded-2xl bg-white/40 hover:bg-white/80 border border-white/50 shadow-sm transition-all group">
+                <div class="w-14 h-14 rounded-xl bg-steel-50 overflow-hidden flex-shrink-0 border border-steel-100/50">
+                  {% if product.images.first %}
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-transform group-hover:scale-110">
+                  {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-steel-300">
+                      {% icon 'image' 'w-6 h-6' %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-bold text-steel-950 truncate group-hover:text-ember-600 transition-colors">{{ product.name }}</div>
+                  <div class="text-sm text-ember-600 font-bold mt-0.5">{{ product.price }} ₸</div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-steel-100/50 flex items-center justify-center text-steel-400 group-hover:bg-ember-50 group-hover:text-ember-500 transition-colors">
+                  {% icon 'arrow-up-right' 'w-4 h-4' %}
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Decorative Lines -->
+          <div class="absolute inset-0 -z-10 flex items-center justify-center">
+            <div class="w-[120%] h-[120%] border border-ember-500/20 rounded-full border-dashed animate-[spin_20s_linear_infinite]"></div>
+            <div class="absolute w-[140%] h-[140%] border border-steel-200/50 rounded-full border-dashed animate-[spin_30s_linear_infinite_reverse]"></div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Bento Grid Categories -->
+<section class="py-32 bg-white relative overflow-hidden">
+  <div class="container relative z-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+      <div class="max-w-2xl">
+        <h2 class="section-reveal section-heading">Наши направления</h2>
+        <p class="section-reveal mt-6 text-xl text-steel-500 leading-relaxed">Исследуйте тщательно отобранные категории товаров для любых профессиональных задач.</p>
+      </div>
+      <a href="{% url 'shop:product_list' %}" class="section-reveal group flex items-center gap-3 text-ember-600 font-extrabold text-lg transition-all">
+        <span class="border-b-2 border-ember-200 group-hover:border-ember-500 transition-colors pb-1">Смотреть все категории</span>
+        {% icon 'arrow-right' 'w-6 h-6 group-hover:translate-x-2 transition-transform' %}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 h-auto">
+      <!-- Big Card -->
+      <a href="{% url 'shop:product_list_by_category' category_slug='stroitelstvo-i-remont' %}" 
+         class="bento-card bento-card-base md:col-span-6 group bg-slate-50 border-slate-100 min-h-[400px]">
+        <div class="relative z-20 max-w-sm">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 text-ember-500 border border-slate-100">
+            {% icon 'hammer' 'w-6 h-6' %}
+          </div>
+          <h3 class="font-display text-4xl font-bold text-steel-950 mb-6 transition-colors group-hover:text-ember-600">Строительство И Ремонт</h3>
+          <p class="text-steel-600 font-medium text-lg leading-relaxed">Все от фундамента до кровли. Лучшие бренды и проверенные материалы для серьезных задач.</p>
+        </div>
+        <div class="relative z-20 mt-8">
+          <span class="inline-flex items-center gap-3 rounded-2xl bg-steel-950 px-8 py-4 text-sm font-bold text-white shadow-xl transition-all group-hover:bg-ember-600 group-hover:scale-105 active:scale-95">
+            Исследовать {% icon 'chevron-right' 'w-5 h-5 ml-1' %}
+          </span>
+        </div>
+        {% if not SIMPLE_DESIGN %}
+        <div class="absolute right-0 top-0 w-1/2 h-full pointer-events-none z-10 overflow-hidden">
+          <img src="{% static 'images/MainPage/construction-card.png' %}" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/20 to-transparent"></div>
+        </div>
+        {% endif %}
+      </a>
+
+      <!-- Small Vertical Card -->
+      <a href="{% url 'shop:product_list_by_category' category_slug='mebel' %}" 
+         class="bento-card bento-card-base md:col-span-6 bg-gradient-to-br from-amber-50 to-orange-50 border-amber-100 group flex flex-col min-h-[400px]">
+        <div class="relative z-20 max-w-[280px]">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-8 text-amber-500 border border-orange-100">
+            {% icon 'sofa' 'w-6 h-6' %}
+          </div>
+          <h3 class="font-display text-3xl font-bold text-steel-950 mb-4 transition-colors group-hover:text-ember-600">Мебель</h3>
+          <p class="text-steel-600 font-medium leading-relaxed">Стильные и надежные решения для вашего интерьера.</p>
+        </div>
+        {% if not SIMPLE_DESIGN %}
+        <div class="absolute right-0 top-0 w-1/2 h-full pointer-events-none z-10 overflow-hidden">
+           <img src="{% static 'images/MainPage/furniture-card.png' %}" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+           <div class="absolute inset-0 bg-gradient-to-r from-amber-50 via-amber-50/20 to-transparent"></div>
+        </div>
+        {% endif %}
+        <div class="relative z-20 mt-auto">
+           <div class="w-12 h-12 rounded-full bg-white border border-orange-100 flex items-center justify-center text-orange-500 shadow-sm opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">
+             {% icon 'arrow-right' 'w-6 h-6' %}
+           </div>
+        </div>
+      </a>
+
+      <!-- Small Horizontal Card -->
+      <a href="{% url 'shop:product_list_by_category' category_slug='kompyuternaya-tehnika' %}" 
+         class="bento-card bento-card-base md:col-span-12 bg-steel-950 mt-4 lg:p-16 flex flex-col md:flex-row items-center group border-white/5 min-h-[500px]">
+        <div class="relative z-20 text-white max-w-xl mb-12 md:mb-0">
+          <div class="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center mb-8 text-ember-400 backdrop-blur-xl">
+            {% icon 'cpu' 'w-8 h-8' %}
+          </div>
+          <h3 class="font-display text-5xl font-bold mb-8 transition-colors group-hover:text-ember-400">IT & Электроника</h3>
+          <p class="text-white/50 text-xl leading-relaxed mb-10">Современные компьютеры, серверное оборудование и комплектующие для работы любой сложности.</p>
+          <span class="inline-flex items-center gap-3 rounded-2xl bg-white text-steel-950 px-10 py-5 text-base font-black transition-all group-hover:bg-ember-500 group-hover:text-white group-hover:shadow-[0_20px_40px_rgba(234,88,12,0.3)]">
+            Открыть каталог {% icon 'monitor' 'w-6 h-6 ml-2' %}
+          </span>
+        </div>
+        <div class="relative w-full md:w-3/5 h-80 md:h-full flex items-center justify-end">
+          {% if not SIMPLE_DESIGN %}
+          <div class="absolute inset-0 bg-ember-500/20 blur-[120px] rounded-full scale-125 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <img src="{% static 'images/MainPage/electronics-card.png' %}" loading="eager" decoding="async" class="relative z-30 w-full h-auto object-contain transition-all duration-1000 group-hover:scale-105 drop-shadow-[0_30px_50px_rgba(0,0,0,0.5)]">
+          {% endif %}
+        </div>
+      </a>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- Highlights Section -->
+<section class="py-32 bg-steel-50/50 border-t border-steel-100">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+      <div class="highlight-card highlight-card-base group">
+        <div class="w-20 h-20 rounded-3xl bg-ember-100 border border-ember-200 flex items-center justify-center text-ember-600 mb-10 transition-all duration-500 group-hover:bg-ember-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 shadow-sm">
+          {% if not SIMPLE_DESIGN %}{% icon 'truck' 'w-10 h-10' %}{% endif %}
+        </div>
+        <h4 class="font-display text-2xl font-bold text-steel-950 mb-4">Быстрая доставка</h4>
+        <p class="text-steel-500 text-lg leading-relaxed">Доставляем заказы по всему Казахстану в кратчайшие сроки с полным страхованием груза.</p>
+      </div>
+      
+      <div class="highlight-card highlight-card-base group">
+        <div class="w-20 h-20 rounded-3xl bg-white border border-slate-100 flex items-center justify-center text-steel-950 mb-10 transition-all duration-500 group-hover:bg-steel-950 group-hover:text-white group-hover:scale-110 group-hover:-rotate-6 shadow-sm">
+          {% if not SIMPLE_DESIGN %}{% icon 'shield-check' 'w-10 h-10' %}{% endif %}
+        </div>
+        <h4 class="font-display text-2xl font-bold text-steel-950 mb-4">Гарантия качества</h4>
+        <p class="text-steel-500 text-lg leading-relaxed">Только оригинальная продукция от сертифицированных производителей и прямых поставщиков.</p>
+      </div>
+      
+      <div class="highlight-card highlight-card-base group">
+        <div class="w-20 h-20 rounded-3xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-600 mb-10 transition-all duration-500 group-hover:bg-amber-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-6 shadow-sm">
+          {% if not SIMPLE_DESIGN %}{% icon 'headset' 'w-10 h-10' %}{% endif %}
+        </div>
+        <h4 class="font-display text-2xl font-bold text-steel-950 mb-4">Поддержка 24/7</h4>
+        <p class="text-steel-500 text-lg leading-relaxed">Наши технические специалисты всегда готовы помочь вам с подбором оборудования.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+{% if not SIMPLE_DESIGN %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Entrance Animation
+  const tl = gsap.timeline();
+    
+  // Initial setup to prevent flash (handled by base.html but GSAP needs to manage it now)
+  gsap.set(".hero-reveal-inner", { yPercent: 101, opacity: 1 });
+    
+  tl.to(".hero-reveal-inner", {
+    yPercent: 0,
+    duration: 1.2,
+    stagger: 0.1,
+    ease: "expo.out",
+  });
+    
+  tl.from("#hero-interactive", {
+    scale: 0.9,
+    opacity: 0,
+    duration: 1.5,
+    ease: "expo.out"
+  }, "-=0.8");
+
+  // Dynamic Background Movement
+  gsap.to("#hero-mesh", {
+    backgroundPosition: "10% 10%",
+    duration: 20,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+
+  // 2. Interactive Parallax Effect
+  const container = document.querySelector('#hero-interactive');
+  const card = document.querySelector('#float-card');
+
+  if (container) {
+    window.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+            
+      const xPos = (clientX / innerWidth) - 0.5;
+      const yPos = (clientY / innerHeight) - 0.5;
+
+      gsap.to(card, {
+        x: xPos * 40,
+        y: yPos * 40,
+        rotateY: xPos * 15,
+        rotateX: -yPos * 15,
+        duration: 1,
+        ease: "power2.out"
+      });
+    });
+  }
+
+  // 3. Constant Floating Motion
+  gsap.to(card, {
+    y: "+=15",
+    duration: 2.5,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+});
+</script>
+{% endif %}
+{% endblock %}
+

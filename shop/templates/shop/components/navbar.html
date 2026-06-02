@@ -1,0 +1,74 @@
+{% load static svg_icons %}
+<!-- Header Component -->
+<header class="sticky top-0 z-50 transition-all duration-500" id="main-header">
+  <div class="container py-4">
+    <div class="glass-panel rounded-3xl px-6 py-3 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="{% url 'shop:home' %}" class="flex items-center group transition-transform active:scale-95" aria-label="HummerLine Главная">
+        {% icon 'logo' 'h-8 lg:h-10 w-auto' 'logo-svg' %}
+      </a>
+
+      <!-- Navigation -->
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="{% url 'shop:home' %}" class="text-sm font-bold text-steel-900 hover:text-ember-600 transition-colors">Главная</a>
+        <a href="{% url 'shop:product_list' %}" class="text-sm font-bold text-steel-900 hover:text-ember-600 transition-colors">Все товары</a>
+        <a href="{% url 'shop:product_create' %}" class="flex items-center gap-2 text-sm font-bold text-ember-600 hover:text-ember-700 transition-colors">
+          {% icon 'plus-circle' 'w-4 h-4' %} Разместить объявление
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'shop:cart_detail' %}" class="flex items-center gap-2 text-sm font-bold text-steel-900 hover:text-ember-600 transition-colors">
+          {% icon 'shopping-cart' 'w-4 h-4' %} Корзина
+          <span class="bg-ember-500 text-white text-[10px] px-1.5 py-0.5 rounded-full" id="cart-count">0</span>
+        </a>
+        {% endif %}
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        {% if user.is_authenticated %}
+          <div class="relative group">
+            <button id="profile-dropdown-btn" class="flex items-center gap-3 pl-2 pr-4 py-1.5 bg-steel-100 rounded-full hover:bg-steel-200 transition-colors">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-ember-500 to-amber-400 flex items-center justify-center text-white font-bold text-sm">
+                {{ user.username|first|upper }}
+              </div>
+              <span class="text-sm font-bold text-steel-900 hidden sm:inline">{{ user.username }}</span>
+              {% icon 'chevron-down' 'w-4 h-4 text-steel-400 transition-transform duration-300' %}
+            </button>
+            
+            <div id="profile-dropdown-menu" class="absolute right-0 mt-3 w-56 rounded-3xl glass-panel opacity-0 invisible translate-y-4 transition-all duration-300 z-50">
+              <div class="p-3 flex flex-col gap-1">
+                <a href="{% url 'shop:product_create' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ember-600 rounded-2xl hover:bg-ember-50 transition-all">
+                  {% icon 'plus-circle' 'w-4 h-4' %} Создать объявление
+                </a>
+                <a href="{% url 'shop:my_purchases' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-steel-700 rounded-2xl hover:bg-white hover:text-ember-600 transition-all">
+                  {% icon 'shopping-bag' 'w-4 h-4' %} Покупки
+                </a>
+                <a href="{% url 'shop:my_ads' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-steel-700 rounded-2xl hover:bg-white hover:text-ember-600 transition-all">
+                  {% icon 'package' 'w-4 h-4' %} Объявления
+                </a>
+                <a href="{% url 'shop:chat_list' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-steel-700 rounded-2xl hover:bg-white hover:text-ember-600 transition-all">
+                  {% icon 'message-square' 'w-4 h-4' %} Сообщения
+                </a>
+                <a href="{% url 'shop:profile_edit' %}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-steel-700 rounded-2xl hover:bg-white hover:text-ember-600 transition-all">
+                  {% icon 'settings' 'w-4 h-4' %} Настройки
+                </a>
+                <div class="h-px bg-steel-200/50 my-1 mx-2"></div>
+                <form method="POST" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-red-600 rounded-2xl hover:bg-red-50 transition-all text-left">
+                    {% icon 'log-out' 'w-4 h-4' %} Выйти
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <a href="{% url 'login' %}" class="text-sm font-extrabold text-steel-900 hover:text-ember-600 px-5 transition-all active:scale-95">Вход</a>
+          <a href="{% url 'register' %}" class="btn-primary-ember btn-no-scale !py-2.5 !px-8 !text-sm !rounded-2xl">Начать</a>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</header>
