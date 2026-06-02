@@ -1,4 +1,6 @@
-lucide.createIcons();
+if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+}
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof updateHeaderCart === 'function') {
         updateHeaderCart();
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             profileMenu.classList.toggle('opacity-0');
             profileMenu.classList.toggle('invisible');
-            profileMenu.classList.toggle('translate-y-2');
+            profileMenu.classList.toggle('translate-y-4');
             if (profileIcon) {
                 profileIcon.classList.toggle('rotate-180');
             }
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.addEventListener('click', (e) => {
             if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
-                profileMenu.classList.add('opacity-0', 'invisible', 'translate-y-2');
+                profileMenu.classList.add('opacity-0', 'invisible', 'translate-y-4');
                 if (profileIcon) {
                     profileIcon.classList.remove('rotate-180');
                 }
